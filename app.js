@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { sequelize } = require("./services/dbService");
 const userController = require("./controllers/userController");
 const bodyParser = require("body-parser");
@@ -6,6 +7,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = 3001;
 
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(bodyParser.json());
 
