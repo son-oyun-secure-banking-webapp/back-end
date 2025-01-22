@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const { sequelize } = require("./services/dbService");
 const userController = require("./controllers/userController");
+const bankMarketingController = require("./controllers/bankMarketingController");
+const defaultPaymentController = require("./controllers/defaultPaymentController");
+const applicationController = require("./controllers/applicationController");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -22,6 +25,97 @@ app.get("/api/data", (req, res) => {
 app.get("/check-user", (req, res) => {
   userController.checkUser(req, res);
 });
+
+// bank marketing
+
+app.get(
+  "/get-number-of-customers-with-housing-loans-by-education-level",
+  bankMarketingController.getCustomersWithHousingLoansByEducationLevel
+);
+
+app.get(
+  "/get-average-balance-of-customers-by-marital-status",
+  bankMarketingController.getAverageBalanceOfCustomersByMaritalStatus
+);
+
+app.get(
+  "/get-number-of-customers-contacted-each-month",
+  bankMarketingController.getNumberOfCustomersContactedEachMonth
+);
+
+app.get(
+  "/average-campaign-duration-by-education-level",
+  bankMarketingController.getAverageCampaignDurationByEducationLevel
+);
+
+app.get(
+  "/get-number-of-customers-accepted-offer-by-marital-status",
+  bankMarketingController.getNumberOfCustomersAcceptedOfferByMaritalStatus
+);
+
+// default payment dataset
+
+app.get(
+  "/get-count-defaulters-by-education-level",
+  defaultPaymentController.getCountDefaultersByEducationLevel
+);
+
+app.get(
+  "/get-average-credit-limit-by-marital-status",
+  defaultPaymentController.getAverageCreditLimitByMaritalStatus
+);
+
+app.get(
+  "/get-count-of-customers-with-payment-delays-last-six-month",
+  defaultPaymentController.getCountOfCustomersWithPaymentDelaysLastSixMonth
+);
+
+app.get(
+  "/get-average-age-of-customers-by-default-status",
+  defaultPaymentController.getAverageAgeOfCustomersByDefaultStatus
+);
+
+app.get(
+  "/get-total-outstanding-bill-amount-by-marital-status",
+  defaultPaymentController.getTotalOutstandingBillAmountByMaritalStatus
+);
+
+app.get(
+  "/get-average-total-payment-made-by-education-level",
+  defaultPaymentController.getAverageTotalPaymentMadeByEducationLevel
+);
+
+// Application Dataset Queries
+
+app.get(
+  "/get-count-of-applications-by-type",
+  applicationController.getCountOfApplicationsByType
+);
+
+app.get(
+  "/get-average-time-between-received-and-accepted-by-region",
+  applicationController.getAverageTimeBetweenReceivedAndAcceptedByRegion
+);
+
+app.get(
+  "/get-count-of-applications-received-per-state",
+  applicationController.getCountOfApplicationsReceivedPerState
+);
+
+app.get(
+  "/get-proportion-of-applications-consummated-vs-not",
+  applicationController.getProportionOfApplicationsConsummatedVsNot
+);
+
+app.get(
+  "/get-count-of-applications-received-in-2024",
+  applicationController.getCountOfApplicationsReceivedIn2024
+);
+
+app.get(
+  "/get-average-action-processing-time-by-application-type",
+  applicationController.getAverageActionProcessingTimeByApplicationType
+);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -20,7 +20,7 @@ const uploadUsers = async () => {
   ];
 
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     await User.bulkCreate(users);
   } catch (error) {
     console.error("Failed to migrate users:", error.message);

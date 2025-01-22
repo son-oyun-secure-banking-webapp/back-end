@@ -1,0 +1,170 @@
+################################## BankMarketing Dataset Queries #################################
+
+# Count customers with housing loans by education level
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per group)
+bankmarketing_query_1 = """
+SELECT education, COUNT(*) AS num_customers
+FROM bankMarketings
+WHERE housing = 'yes'
+GROUP BY education;
+"""
+
+# Average balance of customers by marital status
+# Sensitivity: (max(balance) - min(balance)) / count(marital)
+# Query to calculate sensitivity:
+# SELECT MAX(balance) - MIN(balance) AS balance_range FROM bankMarketings;
+bankmarketing_query_2 = """
+SELECT marital, AVG(balance) AS avg_balance
+FROM bankMarketings
+GROUP BY marital;
+"""
+
+# Number of customers contacted in each month
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per month)
+bankmarketing_query_3 = """
+SELECT month, COUNT(*) AS num_contacts
+FROM bankMarketings
+GROUP BY month;
+"""
+
+# Average campaign duration by education level
+# Sensitivity: (max(duration) - min(duration)) / count(education)
+# Query to calculate sensitivity:
+# SELECT MAX(duration) - MIN(duration) AS duration_range FROM bankMarketings;
+bankmarketing_query_4 = """
+SELECT education, AVG(duration) AS avg_duration
+FROM bankMarketings
+GROUP BY education;
+"""
+
+# Count of customers who accepted the campaign offer by marital status
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per group)
+bankmarketing_query_5 = """
+SELECT marital, COUNT(*) AS num_accepted
+FROM bankMarketings
+WHERE y = 'yes'
+GROUP BY marital;
+"""
+
+# Proportion of customers with default status (yes/no)
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per group)
+bankmarketing_query_6 = """
+SELECT default, COUNT(*) AS num_customers
+FROM bankMarketings
+GROUP BY default;
+"""
+
+############################# DefaultPayment Dataset Queries #################################
+
+# Count defaulters by education level
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per group)
+defaultpayment_query_1 = """
+SELECT education, COUNT(*) AS num_defaulters
+FROM defaultPayments
+WHERE defaultPaymentNextMonth = 1
+GROUP BY education;
+"""
+
+# Average credit limit (limitBal) by marital status
+# Sensitivity: (max(limitBal) - min(limitBal)) / count(marriage)
+# Query to calculate sensitivity:
+# SELECT MAX(limitBal) - MIN(limitBal) AS credit_limit_range FROM defaultPayments;
+defaultpayment_query_2 = """
+SELECT marriage, AVG(limitBal) AS avg_limit
+FROM defaultPayments
+GROUP BY marriage;
+"""
+
+# Count of customers with payment delays in the last six months
+# Sensitivity: 1 (Adding or removing a single customer changes the count by at most 1 per group)
+defaultpayment_query_3 = """
+SELECT education, COUNT(*) AS num_delayed_customers
+FROM defaultPayments
+WHERE pay0 > 0 OR pay2 > 0 OR pay3 > 0 OR pay4 > 0 OR pay5 > 0 OR pay6 > 0
+GROUP BY education;
+"""
+
+# Average age of customers by default status
+# Sensitivity: (max(age) - min(age)) / count(defaultPaymentNextMonth)
+# Query to calculate sensitivity:
+# SELECT MAX(age) - MIN(age) AS age_range FROM defaultPayments;
+defaultpayment_query_4 = """
+SELECT defaultPaymentNextMonth, AVG(age) AS avg_age
+FROM defaultPayments
+GROUP BY defaultPaymentNextMonth;
+"""
+
+# Total outstanding bill amount grouped by marital status
+# Sensitivity: Maximum sum of bill amounts for a single customer
+# Query to calculate sensitivity:
+# SELECT MAX(billAmt1 + billAmt2 + billAmt3 + billAmt4 + billAmt5 + billAmt6) AS max_bill_sum FROM defaultPayments;
+defaultpayment_query_5 = """
+SELECT marriage, SUM(billAmt1 + billAmt2 + billAmt3 + billAmt4 + billAmt5 + billAmt6) AS total_outstanding
+FROM defaultPayments
+GROUP BY marriage;
+"""
+
+# Average total payment made in the last six months grouped by education level
+# Sensitivity: (max(total payments per customer) - min(total payments per customer)) / count(education)
+# Query to calculate sensitivity:
+# SELECT MAX(payAmt1 + payAmt2 + payAmt3 + payAmt4 + payAmt5 + payAmt6) - MIN(payAmt1 + payAmt2 + payAmt3 + payAmt4 + payAmt5 + payAmt6) AS payment_range FROM defaultPayments;
+defaultpayment_query_6 = """
+SELECT education, AVG(payAmt1 + payAmt2 + payAmt3 + payAmt4 + payAmt5 + payAmt6) AS avg_total_payment
+FROM defaultPayments
+GROUP BY education;
+"""
+
+################################## Application Dataset Queries #################################
+
+# Count of applications by type
+# Sensitivity: 1 (Adding or removing a single application changes the count by at most 1 per type)
+application_query_1 = """
+SELECT applicationType, COUNT(*) AS num_applications
+FROM applications
+GROUP BY applicationType;
+"""
+
+# Average time between received and accepted dates by region
+# Sensitivity: (max(time difference) - min(time difference)) / count(supervisoryRegion)
+# Query to calculate sensitivity:
+# SELECT MAX(DATEDIFF(acceptedDate, receivedDate)) - MIN(DATEDIFF(acceptedDate, receivedDate)) AS time_diff_range FROM applications;
+application_query_2 = """
+SELECT supervisoryRegion, AVG(DATEDIFF(acceptedDate, receivedDate)) AS avg_processing_time
+FROM applications
+GROUP BY supervisoryRegion;
+"""
+
+# Count of applications received per state
+# Sensitivity: 1 (Adding or removing a single application changes the count by at most 1 per state)
+application_query_3 = """
+SELECT state, COUNT(*) AS num_applications
+FROM applications
+GROUP BY state;
+"""
+
+# Proportion of applications consummated vs. not consummated
+# Sensitivity: 1 (Adding or removing a single application changes the count by at most 1 per group)
+application_query_4 = """
+SELECT consummationIndicator, COUNT(*) AS num_applications
+FROM applications
+GROUP BY consummationIndicator;
+"""
+
+# Count of applications received within a specific year
+# Sensitivity: 1 (Adding or removing a single application changes the count by at most 1)
+application_query_5 = """
+SELECT state, COUNT(*) AS num_applications
+FROM applications
+WHERE YEAR(receivedDate) = 2024
+GROUP BY state;
+"""
+
+# Average action processing time by application type
+# Sensitivity: (max(action time difference) - min(action time difference)) / count(applicationType)
+# Query to calculate sensitivity:
+# SELECT MAX(DATEDIFF(actionDate, receivedDate)) - MIN(DATEDIFF(actionDate, receivedDate)) AS action_time_diff_range FROM applications;
+application_query_6 = """
+SELECT applicationType, AVG(DATEDIFF(actionDate, receivedDate)) AS avg_action_time
+FROM applications
+GROUP BY applicationType;
+"""
