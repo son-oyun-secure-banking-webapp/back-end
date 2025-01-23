@@ -9,3 +9,13 @@ exports.checkUser = async (username, password) => {
 
   return null;
 };
+
+exports.getUser = async (userId) => {
+  const user = await User.findByPk(userId);
+
+  if (user) {
+    return user;
+  }
+
+  return null;
+};

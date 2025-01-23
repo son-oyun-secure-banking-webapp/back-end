@@ -18,10 +18,6 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
-app.get("/api/data", (req, res) => {
-  res.json({ message: "Hello from microservice!" });
-});
-
 app.get("/check-user", (req, res) => {
   userController.checkUser(req, res);
 });
@@ -75,6 +71,23 @@ app.get(
 app.get(
   "/get-count-of-applications-received-in-2024",
   applicationController.getCountOfApplicationsReceivedIn2024
+);
+
+// budgets
+
+app.get(
+  "/get-user-budget-default-payment",
+  userController.getUserBudgetDefaultPayment
+);
+
+app.get(
+  "/get-user-budget-application",
+  userController.getUserBudgetApplication
+);
+
+app.get(
+  "/get-user-budget-bank-marketing",
+  userController.getUserBudgetBankMarketing
 );
 
 app.use((err, req, res, next) => {

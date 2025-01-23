@@ -41,3 +41,11 @@
 `/get-proportion-of-applications-consummated-vs-not?userId=?`
 
 `/get-count-of-applications-received-in-2024?userId=?`
+
+### budgets
+
+`/get-user-budget-default-payment?userId=?`
+
+`/get-user-budget-application?userId=?`
+
+`/get-user-budget-bank-marketing?userId=?`
