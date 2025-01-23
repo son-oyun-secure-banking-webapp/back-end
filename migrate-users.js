@@ -9,6 +9,9 @@ const uploadUsers = async () => {
       password: "admin",
       sex: "female",
       age: 30,
+      budgetBankMarketing: 5,
+      budgetDefaultPayment: 5,
+      budgetApplication: 5,
     },
     {
       username: "user",
@@ -16,11 +19,14 @@ const uploadUsers = async () => {
       password: "user",
       sex: "male",
       age: 25,
+      budgetBankMarketing: 5,
+      budgetDefaultPayment: 5,
+      budgetApplication: 5,
     },
   ];
 
   try {
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     await User.bulkCreate(users);
   } catch (error) {
     console.error("Failed to migrate users:", error.message);

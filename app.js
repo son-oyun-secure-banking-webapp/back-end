@@ -34,18 +34,8 @@ app.get(
 );
 
 app.get(
-  "/get-average-balance-of-customers-by-marital-status",
-  bankMarketingController.getAverageBalanceOfCustomersByMaritalStatus
-);
-
-app.get(
   "/get-number-of-customers-contacted-each-month",
   bankMarketingController.getNumberOfCustomersContactedEachMonth
-);
-
-app.get(
-  "/average-campaign-duration-by-education-level",
-  bankMarketingController.getAverageCampaignDurationByEducationLevel
 );
 
 app.get(
@@ -61,28 +51,8 @@ app.get(
 );
 
 app.get(
-  "/get-average-credit-limit-by-marital-status",
-  defaultPaymentController.getAverageCreditLimitByMaritalStatus
-);
-
-app.get(
   "/get-count-of-customers-with-payment-delays-last-six-month",
   defaultPaymentController.getCountOfCustomersWithPaymentDelaysLastSixMonth
-);
-
-app.get(
-  "/get-average-age-of-customers-by-default-status",
-  defaultPaymentController.getAverageAgeOfCustomersByDefaultStatus
-);
-
-app.get(
-  "/get-total-outstanding-bill-amount-by-marital-status",
-  defaultPaymentController.getTotalOutstandingBillAmountByMaritalStatus
-);
-
-app.get(
-  "/get-average-total-payment-made-by-education-level",
-  defaultPaymentController.getAverageTotalPaymentMadeByEducationLevel
 );
 
 // Application Dataset Queries
@@ -90,11 +60,6 @@ app.get(
 app.get(
   "/get-count-of-applications-by-type",
   applicationController.getCountOfApplicationsByType
-);
-
-app.get(
-  "/get-average-time-between-received-and-accepted-by-region",
-  applicationController.getAverageTimeBetweenReceivedAndAcceptedByRegion
 );
 
 app.get(
@@ -110,11 +75,6 @@ app.get(
 app.get(
   "/get-count-of-applications-received-in-2024",
   applicationController.getCountOfApplicationsReceivedIn2024
-);
-
-app.get(
-  "/get-average-action-processing-time-by-application-type",
-  applicationController.getAverageActionProcessingTimeByApplicationType
 );
 
 app.use((err, req, res, next) => {

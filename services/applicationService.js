@@ -72,6 +72,7 @@ GROUP BY state;
 };
 
 exports.getAverageActionProcessingTimeByApplicationType = async (req, res) => {
+  // double
   try {
     const [results, metadata] = await sequelize.query(`
 SELECT applicationType, AVG(DATEDIFF(actionDate, receivedDate)) AS avg_action_time

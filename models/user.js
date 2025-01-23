@@ -34,6 +34,18 @@ const User = sequelize.define("User", {
       min: 0,
     },
   },
+  budgetBankMarketing: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  budgetDefaultPayment: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  budgetApplication: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
 });
 
 module.exports = User;
