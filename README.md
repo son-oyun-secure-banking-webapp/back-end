@@ -32,6 +32,10 @@
 
 `/get-count-of-customers-with-payment-delays-last-six-month?userId=?`
 
+`/get-count-of-customers-by-gender?userId=?`
+
+`/get-count-of-customers-by-age-group?userId=?`
+
 ### application dataset
 
 `/get-count-of-applications-by-type?userId=?`

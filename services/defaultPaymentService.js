@@ -85,3 +85,31 @@ GROUP BY education;
     console.error("Error executing query:", error);
   }
 };
+
+exports.getCountOfCustomersByGender = async (req, res) => {
+  try {
+    const [results, metadata] = await sequelize.query(`
+      SELECT sex, COUNT(*) AS num_customers
+FROM defaultPayments
+GROUP BY sex;
+`);
+
+    return results;
+  } catch (error) {
+    console.error("Error executing query:", error);
+  }
+};
+
+exports.getCountOfCustomersByAgeGroup = async (req, res) => {
+  try {
+    const [results, metadata] = await sequelize.query(`
+      SELECT FLOOR(age / 10) * 10 AS age_group, COUNT(*) AS num_customers
+FROM defaultPayments
+GROUP BY age_group;
+`);
+
+    return results;
+  } catch (error) {
+    console.error("Error executing query:", error);
+  }
+};

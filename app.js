@@ -51,6 +51,16 @@ app.get(
   defaultPaymentController.getCountOfCustomersWithPaymentDelaysLastSixMonth
 );
 
+app.get(
+  "/get-count-of-customers-by-gender",
+  defaultPaymentController.getCountOfCustomersByGender
+);
+
+app.get(
+  "/get-count-of-customers-by-age-group",
+  defaultPaymentController.getCountOfCustomersByAgeGroup
+);
+
 // Application Dataset Queries
 
 app.get(

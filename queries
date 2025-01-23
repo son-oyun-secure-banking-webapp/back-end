@@ -168,3 +168,26 @@ SELECT applicationType, AVG(DATEDIFF(actionDate, receivedDate)) AS avg_action_ti
 FROM applications
 GROUP BY applicationType;
 """
+
+# Default Payment Bonus Queries
+
+# Count of customers by gender
+defaultpayment_bonus_query_1 = """
+SELECT sex, COUNT(*) AS num_customers
+FROM defaultPayments
+GROUP BY sex;
+"""
+
+# Count of customers by age group
+defaultpayment_bonus_query_2 = """
+SELECT FLOOR(age / 10) * 10 AS age_group, COUNT(*) AS num_customers
+FROM defaultPayments
+GROUP BY age_group;
+"""
+
+# Count of customers by default status for the next month
+defaultpayment_bonus_query_3 = """
+SELECT defaultPaymentNextMonth, COUNT(*) AS num_customers
+FROM defaultPayments
+GROUP BY defaultPaymentNextMonth;
+"""
